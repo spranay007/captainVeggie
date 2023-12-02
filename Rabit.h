@@ -1,5 +1,3 @@
-// Rabbit.h
-
 #ifndef RABBIT_H
 #define RABBIT_H
 
