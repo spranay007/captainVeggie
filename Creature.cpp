@@ -2,7 +2,7 @@
 
 Creature::Creature(int xCoord, int yCoord, string& symbol) : x(xCoord), y(yCoord), FieldInhabitant(symbol), {}
 
-// Getter functions
+// Getter function
 int Creature::getX()
 {
     return x;
