@@ -1,8 +1,8 @@
 #include "Creature.h"
 
-Creature::Creature(int xCoord, int yCoord, string& symbol) : x(xCoord), y(yCoord), FieldInhabitant(symbol), {}
+Creature::Creature(int xCoord, int yCoord, string& symbol) : x(xCoord), y(yCoord), FieldInhabitant(symbol) {}
 
-// Getter function
+// Getter functions
 int Creature::getX()
 {
     return x;
