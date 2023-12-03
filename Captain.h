@@ -2,7 +2,8 @@
 #define CAPTAIN_H
 
 #include "Creature.h"
-// #include "Veggie.h"  
+#include "Veggie.h"  
+#include<vector>
 
 class Captain : public Creature 
 {
@@ -16,7 +17,7 @@ public:
     void addVeggie(Veggie* veggie);
 
     // Getter function for veggieCollection
-    vector<Veggie*>& getVeggieCollection();
+    const vector<Veggie*>& getVeggieCollection() const;
 
     // Setter function for veggieCollection
     void setVeggieCollection(const vector<Veggie*>& collection);

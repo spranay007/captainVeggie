@@ -13,8 +13,8 @@ public:
     Creature(int xCoord, int yCoord, const string& symbol);
 
     // Getter functions
-    int getX();
-    int getY();
+    int getX() const;
+    int getY() const;
 
     // Setter functions
     void setX(int xCoord);

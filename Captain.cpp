@@ -7,12 +7,12 @@ void Captain::addVeggie(Veggie* veggie)
     veggieCollection.push_back(veggie);
 }
 
-const vector<Veggie*>& Captain::getVeggieCollection() 
+const vector<Veggie*>& Captain::getVeggieCollection() const
 {
     return veggieCollection;
 }
 
-void Captain::setVeggieCollection(vector<Veggie*>& collection)
+void Captain::setVeggieCollection(const vector<Veggie*>& collection)
  {
     // Clear existing collection and copy the new one
     for (Veggie* veggie : veggieCollection) 
