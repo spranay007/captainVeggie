@@ -10,7 +10,7 @@ private:
     int y;
 
 public:
-    Creature(int xCoord, int yCoord, string& symbol);
+    Creature(int xCoord, int yCoord, const string& symbol);
 
     // Getter functions
     int getX();

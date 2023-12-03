@@ -2,12 +2,13 @@
 #define RABBIT_H
 
 #include <string>
+#include "Creature.h"
 
 using namespace std;
 
 class Creature {
 public:
-    Creature(int x, int y, const string& type);
+    Creature(int x, int y, string& type);
     // Assume appropriate getter/setter functions for x, y, and type in the Creature class
 };
 
@@ -16,8 +17,8 @@ public:
     Rabbit(int x, int y);
     
     // Getter functions
-    int getX() const;
-    int getY() const;
+    int getX();
+    int getY();
     
     // Setter functions
     void setX(int x);

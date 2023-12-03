@@ -2,7 +2,7 @@
 #define CAPTAIN_H
 
 #include "Creature.h"
-#include "Veggie.h"  
+// #include "Veggie.h"  
 
 class Captain : public Creature 
 {
