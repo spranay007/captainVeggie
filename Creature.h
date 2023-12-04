@@ -6,6 +6,7 @@
 class Creature : public FieldInhabitant 
 {
 private:
+    //to store the coordinates of the creature
     int x;
     int y;
 

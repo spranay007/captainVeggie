@@ -10,6 +10,7 @@ private:
     string symbol;
 
 public:
+    //String symbol for vegetable, rabbit or captain
     FieldInhabitant(const string& symbol);
     //Virtual deconstructor
     virtual ~FieldInhabitant();

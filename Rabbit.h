@@ -6,23 +6,17 @@
 
 using namespace std;
 
-class Creature {
-public:
-    Creature(int x, int y, string& type);
-    // Assume appropriate getter/setter functions for x, y, and type in the Creature class
-};
-
 class Rabbit : public Creature {
 public:
+    //this is the x and y coordinates of the captain
     Rabbit(int x, int y);
     
     // Getter functions
-    int getX();
-    int getY();
-    
-    // Setter functions
-    void setX(int x);
-    void setY(int y);
+    int getRabbitX() const;
+    void setRabbitX(int x);
+
+    int getRabbitY() const;
+    void setRabbitY(int y);
 
 private:
     // Member variables for Rabbit

@@ -7,19 +7,21 @@ Rabbit::Rabbit(int x, int y) : Creature(x, y, "R") {
 }
 
 // Getter functions
-int Rabbit::getX() const {
-    return x; // assuming x is a member variable of Creature
+int Rabbit::getRabbitX() const {
+    return getX(); // assuming x is a member variable of Creature
 }
 
-int Rabbit::getY() const {
-    return y; // assuming y is a member variable of Creature
+int Rabbit::getRabbitY() const {
+    return getY(); // assuming y is a member variable of Creature
 }
 
 // Setter functions
-void Rabbit::setX(int x) {
-    this->x = x; // assuming x is a member variable of Creature
+void Rabbit::setRabbitX(int x) {
+    setX(x);
+    //this->x = x; // assuming x is a member variable of Creature
 }
 
-void Rabbit::setY(int y) {
-    this->y = y; // assuming y is a member variable of Creature
+void Rabbit::setRabbitY(int y) {
+    setY(y);
+    //this->y = y; // assuming y is a member variable of Creature
 }
