@@ -11,7 +11,7 @@ private:
     int points;
 
 public:
-    Veggie(const string& name, const string& symbol, int points);
+    Veggie(const string& name, int points, const string& symbol);
     
     // Getter and setter for name
     string getName() const;

@@ -1,6 +1,6 @@
 #include "Veggie.h"
 
-Veggie::Veggie(const string& name, const string& symbol, int points)
+Veggie::Veggie(const string& name, int points, const string& symbol)
     : FieldInhabitant(symbol), name(name), points(points) {}
 
 string Veggie::getName() const {
