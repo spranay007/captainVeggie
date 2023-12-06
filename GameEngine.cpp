@@ -22,6 +22,7 @@ GameEngine::~GameEngine() {
 void GameEngine::initializeGame() {
     initVeggies();
     initCaptain();
+    initRabbits();
     std::cout << "Current Field:" << std::endl;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
@@ -34,7 +35,7 @@ void GameEngine::initializeGame() {
         std::cout << std::endl;
     }
     std::cout << std::endl;
-    initRabbits();
+    //initRabbits();
     playerScore = 0;
 }
 
@@ -130,17 +131,56 @@ void GameEngine::initCaptain() {
     field[randomX][randomY] = captain;
 }
 
-void GameEngine::initRabbits() {
+void GameEngine::initRabbits() 
+{
     // TODO: Implement the function
+        for (int i = 0; i < NUMBEROFRABBITS; i++) 
+        {
+            while (true) 
+            {
+                int randomX = rand() % height;
+                int randomY = rand() % width;
+                if (field[randomX][randomY] == nullptr) 
+                {
+                    Rabbit* x = new Rabbit(randomX, randomY);
+                    field[randomX][randomY] = x;
+                    rabbits.push_back(x);
+                    break;
+                }
+            }
+        }
 }
 
 int GameEngine::remainingVeggies() const {
     // TODO: Implement the function
-    return 0;
+    int veggie_count = 0;
+    for (int i=0; i<height; i++)
+    {
+        for (int j=0; j<width; j++)
+        {
+            if (field[i][j] != nullptr && field[i][j]->getSymbol()!="R" && field[i][j]->getSymbol()!= "V" && field[i][j]->getSymbol()!="S") 
+            {
+                veggie_count++;
+            }
+        }
+    }
+                
+    return veggie_count;
 }
 
 void GameEngine::intro() {
     // TODO: Implement the function
+    cout<<"Welcome to Captain Veggie!"<<endl;
+    cout<<"The rabbits have invaded your garden"<<endl;
+    cout<<"So, you must harvest as many vegetables as possible before the rabbits eat them all!"<<endl;
+    cout<<"Each vegetable is worth a different number of points so go for the high score!"<<endl;
+    cout<<"The vegetables are:"<<endl;
+    for (const Veggie* veggie : veggies) {
+        cout << "Name: " << veggie->getName() << ", Symbol: " << veggie->getSymbol()<<endl;
+    }
+    cout<<"Captain Veggie is V, and the rabbits are R's"<<endl;
+    cout<<"Good Luck!"<<endl;
+
 }
 
 void GameEngine::printField() {
