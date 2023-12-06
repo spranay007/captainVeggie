@@ -23,8 +23,8 @@ void GameEngine::initializeGame() {
     initVeggies();
     initCaptain();
     initRabbits();
-    /////////////////////////////////////////////////////////////////////////
-std::cout << "Current Field:" << std::endl;
+    printField();
+    std::cout << "Current Field:" << std::endl;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
             if (field[i][j] == nullptr) {
@@ -207,8 +207,36 @@ void GameEngine::intro() {
 }
 
 void GameEngine::printField() {
-    // TODO: Implement the function
-}
+        // Print the top border
+        cout << "+";
+        for (size_t i = 0; i < width + 2; i++) {
+            cout << "-";
+        }
+        cout << "+" << endl;
+
+        // Print the contents of the field
+        for (int i = 0; i < height; ++i) 
+        {
+            for (int j = 0; j < width; ++j) 
+            {
+                if (field[i][j] == nullptr) 
+                {
+                    cout << " - ";
+                } else {
+                    cout << " " << field[i][j]->getSymbol() << " ";
+            }
+        }
+        cout << std::endl;
+    }
+    cout << std::endl;
+
+        // Print the bottom border
+        cout << "+";
+        for (size_t i = 0; i < width + 2; i++) {
+            cout << "-";
+        }
+        cout << "+" << endl;
+    }
 
 int GameEngine::getScore() const {
     return playerScore;
