@@ -1,3 +1,9 @@
+/* Author: Pranay Saha, Aaftab Gowani, Sameer Bhalala
+Date: 12-06-2023
+Description:
+
+*/
+
 #include "Creature.h"
 
 Creature::Creature(int xCoord, int yCoord, const string& symbol) : FieldInhabitant(symbol), x(xCoord), y(yCoord)  {}

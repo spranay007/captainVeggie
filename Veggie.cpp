@@ -1,3 +1,9 @@
+/* Author: Pranay Saha, Aaftab Gowani, Sameer Bhalala
+Date: 12-06-2023
+Description:
+
+*/
+
 #include "Veggie.h"
 
 Veggie::Veggie(const string& name, int points, const string& symbol)

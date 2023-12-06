@@ -1,3 +1,9 @@
+/* Author: Pranay Saha, Aaftab Gowani, Sameer Bhalala
+Date: 12-06-2023
+Description: This header file is for FeildInhabitant.
+
+*/
+
 #ifndef FIELDINHABITANT_H
 #define FIELDINHABITANT_H
 

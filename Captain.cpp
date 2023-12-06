@@ -1,3 +1,10 @@
+/* Author: Pranay Saha, Aaftab Gowani, Sameer Bhalala
+Date: 12-06-2023
+Description:
+
+*/
+
+
 #include "Captain.h"
 
 Captain::Captain(int xCoord, int yCoord) : Creature(xCoord, yCoord, "V") {}
