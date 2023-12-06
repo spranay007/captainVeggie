@@ -12,6 +12,7 @@ Description:
 FieldInhabitant::FieldInhabitant(const string& symbol) : symbol(symbol) {}
 
 // Destructor for the FieldInhabitant class (empty as there are no dynamic resources to release)
+FieldInhabitant::~FieldInhabitant() {}
 
 // Getter method to retrieve the 'symbol' member variable
 string FieldInhabitant::getSymbol() const {

@@ -23,7 +23,8 @@ void GameEngine::initializeGame() {
     initVeggies();
     initCaptain();
     initRabbits();
-    std::cout << "Current Field:" << std::endl;
+    /////////////////////////////////////////////////////////////////////////
+std::cout << "Current Field:" << std::endl;
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
             if (field[i][j] == nullptr) {
@@ -34,9 +35,20 @@ void GameEngine::initializeGame() {
         }
         std::cout << std::endl;
     }
-    std::cout << std::endl;
-    //initRabbits();
+    std::cout << std::endl;    
+    //////////////////////////////////////////////////////////////
     playerScore = 0;
+
+}
+// Function to generate a random number between 0 and maxNumber
+int generateRandomNumber(int maxNumber) {
+    // Seed the random number generator with the current time
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    // Generate a random number between 0 and maxNumber
+    int randomNumber = std::rand() % (maxNumber + 1);
+
+    return randomNumber;
 }
 
 void GameEngine::initVeggies() {
@@ -85,29 +97,40 @@ void GameEngine::initVeggies() {
 /////////////////////////////////////////////////////////////////////////////////////
 
     srand(static_cast<unsigned int>(time(nullptr)));
+        
+    string veggieName[30]; 
+    string veggieSymbol[30];
+    int veggiePoints[30] ={0};
+    int uniqueVegeCount =0;
 
     while (getline(file, line)) {
         cout << line << endl;
         istringstream veggieStream(line);
-        //string label2;
-        string veggieName, veggieSymbol;
-        int veggiePoints;
-        getline(veggieStream, veggieName, ','); 
-        getline(veggieStream, veggieSymbol, ',');
-        veggieStream >> veggiePoints;
-        cout << "Vegetable: " << veggieName << ", Symbol: " << veggieSymbol << ", Points: " << veggiePoints << endl;
-        Veggie* newVeggie = new Veggie(veggieName, veggiePoints, veggieSymbol);
-
-        int randomX, randomY;
-        do {
-            randomX = rand() % height;
-            randomY = rand() % width;
-        } while (field[randomX][randomY] != nullptr);
-
-        field[randomX][randomY] = newVeggie;
-        veggies.push_back(newVeggie);
+        
+        getline(veggieStream, veggieName[uniqueVegeCount], ','); 
+        getline(veggieStream, veggieSymbol[uniqueVegeCount], ',');
+        veggieStream >> veggiePoints[uniqueVegeCount];
+        
+        cout << "Vegetable: " << veggieName[uniqueVegeCount] << ", Symbol: " << veggieSymbol[uniqueVegeCount] << ", Points: " << veggiePoints[uniqueVegeCount] << endl;
+        uniqueVegeCount++;
     }
 
+    int VegeToAllocated =0;
+    for(int i = 0 ; i<uniqueVegeCount ; i++)
+    {
+        Veggie* newVeggie = new Veggie(veggieName[i], veggiePoints[i], veggieSymbol[i]);
+        VegeToAllocated = generateRandomNumber(NUMBEROFVEGGIES-VegeToAllocated);
+        for(int j = 0 ; j < VegeToAllocated ; j++)
+        {
+            int randomX, randomY;
+            do {
+                randomX = rand() % height;
+                randomY = rand() % width;
+            } while (field[randomX][randomY] != nullptr);
+            field[randomX][randomY] = newVeggie;
+            veggies.push_back(newVeggie);
+        }            
+    }
     file.close();
     
     cout << "Vegetables Loaded:" << endl;
