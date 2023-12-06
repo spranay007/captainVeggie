@@ -22,6 +22,18 @@ GameEngine::~GameEngine() {
 void GameEngine::initializeGame() {
     initVeggies();
     initCaptain();
+    std::cout << "Current Field:" << std::endl;
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            if (field[i][j] == nullptr) {
+                std::cout << " - ";
+            } else {
+                std::cout << " " << field[i][j]->getSymbol() << " ";
+            }
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
     initRabbits();
     playerScore = 0;
 }
@@ -83,13 +95,6 @@ void GameEngine::initVeggies() {
         getline(veggieStream, veggieSymbol, ',');
         veggieStream >> veggiePoints;
         cout << "Vegetable: " << veggieName << ", Symbol: " << veggieSymbol << ", Points: " << veggiePoints << endl;
-        // getline(veggieStream, label2, ',');
-        // veggieStream >> veggieName;
-        // getline(veggieStream, label2, ',');
-        // veggieStream >> veggieSymbol;
-        // getline(veggieStream, label2, ',');
-        // veggieStream >> veggiePoints;
-
         Veggie* newVeggie = new Veggie(veggieName, veggiePoints, veggieSymbol);
 
         int randomX, randomY;
@@ -103,11 +108,26 @@ void GameEngine::initVeggies() {
     }
 
     file.close();
+    
+    cout << "Vegetables Loaded:" << endl;
+    for (const Veggie* veggie : veggies) {
+        cout << "Name: " << veggie->getName() << ", Symbol: " << veggie->getSymbol() << ", Points: " << veggie->getPoints() << endl;
+    }
 }
 
 
 void GameEngine::initCaptain() {
-    // TODO: Implement the function
+    captain = new Captain(0, 0); // Initializing at (0, 0) for simplicity
+
+    int randomX, randomY;
+    do {
+        randomX = rand() % height;
+        randomY = rand() % width;
+    } while (field[randomX][randomY] != nullptr);
+
+    captain->setX(randomX);
+    captain->setY(randomY);
+    field[randomX][randomY] = captain;
 }
 
 void GameEngine::initRabbits() {
