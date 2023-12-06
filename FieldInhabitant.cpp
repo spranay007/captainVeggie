@@ -5,16 +5,21 @@ Description:
 */
 
 
+// Include the header file for the FieldInhabitant class
 #include "FieldInhabitant.h"
 
+// Constructor for the FieldInhabitant class, initializing the 'symbol' member variable with the provided value
 FieldInhabitant::FieldInhabitant(const string& symbol) : symbol(symbol) {}
 
-FieldInhabitant::~FieldInhabitant() {}
+// Destructor for the FieldInhabitant class (empty as there are no dynamic resources to release)
 
+// Getter method to retrieve the 'symbol' member variable
 string FieldInhabitant::getSymbol() const {
     return symbol;
 }
 
+// Setter method to update the 'symbol' member variable with a new value
 void FieldInhabitant::setSymbol(const string& symbol) {
     this->symbol = symbol;
 }
+
