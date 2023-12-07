@@ -208,16 +208,17 @@ void GameEngine::intro() {
 
 void GameEngine::printField() {
         // Print the top border
-        cout << "+";
-        for (size_t i = 0; i < width + 2; i++) {
-            cout << "-";
+        cout << "+"<<" ";
+        for (size_t i = 0; i < width + 5; i++) {
+            cout << "-"<<" ";
         }
         cout << "+" << endl;
 
         // Print the contents of the field
-        for (int i = 0; i < height; ++i) 
+        for (int i = 0; i < height; i++) 
         {
-            for (int j = 0; j < width; ++j) 
+            cout<<"|";
+            for (int j = 0; j < width; j++) 
             {
                 if (field[i][j] == nullptr) 
                 {
@@ -226,14 +227,13 @@ void GameEngine::printField() {
                     cout << " " << field[i][j]->getSymbol() << " ";
             }
         }
-        cout << std::endl;
+        cout << "|"<<endl;
     }
-    cout << std::endl;
 
         // Print the bottom border
-        cout << "+";
-        for (size_t i = 0; i < width + 2; i++) {
-            cout << "-";
+        cout << "+"<<" ";
+        for (size_t i = 0; i < width + 5; i++) {
+            cout << "-"<<" ";
         }
         cout << "+" << endl;
     }
