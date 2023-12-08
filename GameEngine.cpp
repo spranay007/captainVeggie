@@ -39,20 +39,6 @@ void GameEngine::initializeGame() {
     initRabbits();
     initSnake();
     printField();
-    /////////////////////////////////////////////////////////
-    // cout << "Current Field:" << endl;
-    // for (int i = 0; i < height; ++i) {
-    //     for (int j = 0; j < width; ++j) {
-    //         if (field[i][j] == nullptr) {
-    //             cout << " - ";
-    //         } else {
-    //             cout << " " << field[i][j]->getSymbol() << " ";
-    //         }
-    //     }
-    //     cout << endl;
-    // }
-    // cout << endl;    
-    //////////////////////////////////////////////////////////
     playerScore = 0;
 
 }
@@ -61,8 +47,6 @@ int generateRandomNumber(int maxNumber) {
     int randomNumber = 0;
     // Seed the random number generator with the current time
     srand(static_cast<unsigned int>(time(nullptr)));
-
-    // Generate a random number between 0 and maxNumber
     randomNumber = rand() % (maxNumber + 1);
     return randomNumber;
 }
@@ -86,7 +70,6 @@ void GameEngine::initVeggies() {
     istringstream iss(line);
     // Variables to store the parsed values
     string label;
-    // Read the label and discard it (assuming it's not needed)
     getline(iss, label, ',');
 
     // Read the values of x and y
@@ -106,22 +89,10 @@ void GameEngine::initVeggies() {
     // Time to seed
     srand(static_cast<unsigned int>(time(nullptr)));
 
-    // string veggieName[30]; 
-    // string veggieSymbol[30];
-    // int veggiePoints[30] ={0};
-   
-    
     while (getline(file, line)) {
-        //cout << line << endl;
+
         istringstream veggieStream(line);
-        /*
-        getline(veggieStream, veggieName[uniqueVegeCount], ','); 
-        getline(veggieStream, veggieSymbol[uniqueVegeCount], ',');
-        veggieStream >> veggiePoints[uniqueVegeCount];
-        
-        cout << "Vegetable: " << veggieName[uniqueVegeCount] << ", Symbol: " << veggieSymbol[uniqueVegeCount] << ", Points: " << veggiePoints[uniqueVegeCount] << endl;
-        uniqueVegeCount++;
-        */
+
         string name, symbol;
         int points;
 
@@ -129,9 +100,6 @@ void GameEngine::initVeggies() {
         getline(veggieStream, symbol, ',');
         veggieStream >> points;
 
-        // cout << "Vegetable: " << name << ", Symbol: " << symbol << ", Points: " << points << endl;
-
-        // Create a new Veggie object and add it to the vector
         Veggie* newVeggieRead = new Veggie(name, points, symbol);
         veggies.push_back(newVeggieRead);
     }
@@ -167,23 +135,6 @@ void GameEngine::initVeggies() {
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
-    // for(int i = 0 ; i<uniqueVegeCount ; i++)
-    // {
-        /*
-        Veggie* newVeggie = new Veggie(veggieName[i], veggiePoints[i], veggieSymbol[i]);
-        //veggies.push_back(newVeggie);
-        // Veggie* newVeggie = new Veggie(veggies[i]->getName(), veggies[i]->getSymbol(), veggies[i]->getPoints());
-        for(int j = 0 ; j < temp[i] ; j++)
-        {
-            int randomX, randomY;
-            do {
-                randomX = rand() % height;
-                randomY = rand() % width;
-            } while (field[randomX][randomY] != nullptr);
-            field[randomX][randomY] = newVeggie;    
-        } 
-        */
-
         int countFlag = 0;
         for (Veggie* veg : veggies) {
             for (int j = 0; j < temp[countFlag]; j++) {
@@ -199,10 +150,6 @@ void GameEngine::initVeggies() {
         }
     file.close();
     
-    // cout << "Vegetables Loaded:" << endl;
-    // for (const Veggie* veggie : veggies) {
-    //     cout << "Name: " << veggie->getName() << ", Symbol: " << veggie->getSymbol() << ", Points: " << veggie->getPoints() << endl;
-    // }
 }
 
 
@@ -272,7 +219,6 @@ int GameEngine::remainingVeggies() const {
 }
 
 void GameEngine::intro() {
-    // TODO: Implement the function
     cout<<"Welcome to Captain Veggie!"<<endl;
     cout<<"The rabbits have invaded your garden"<<endl;
     cout<<"So, you must harvest as many vegetables as possible before the rabbits eat them all!"<<endl;
@@ -287,12 +233,11 @@ void GameEngine::intro() {
 }
 
 void GameEngine::printField() {
-    // ANSI escape codes for color
-    const std::string RESET_COLOR = "\033[0m";
-    const std::string YELLOW_COLOR = "\033[33m";  // Yellow for rabbits
-    const std::string BLUE_COLOR = "\033[34m";    // Blue for captain
-    const std::string GREEN_COLOR = "\033[32m";   // Green for vegetables
-    const std::string RED_COLOR = "\033[31m";       //red for snake
+    const string RESET_COLOR = "\033[0m";
+    const string YELLOW_COLOR = "\033[33m";  // Yellow for rabbits
+    const string BLUE_COLOR = "\033[34m";    // Blue for captain
+    const string GREEN_COLOR = "\033[32m";   // Green for vegetables
+    const string RED_COLOR = "\033[31m";       //red for snake
         // Print the top border
         cout << "#"<<" ";
         for (int top = 0; top < width + 4; top++) {
@@ -300,7 +245,6 @@ void GameEngine::printField() {
         }
         cout << "#" << endl;
 
-        // Print the contents of the field
         for (int i = 0; i < height; i++) 
         {
             cout<<"#";
@@ -326,7 +270,6 @@ void GameEngine::printField() {
                     {
                         cout << GREEN_COLOR << " " << field[i][j]->getSymbol() << " "<< RESET_COLOR;
                     }
-                    // cout << " " << field[i][j]->getSymbol() << " ";
                 }
         }
         cout << "#"<<endl;
@@ -347,8 +290,8 @@ int GameEngine::getScore() const {
 void GameEngine::moveRabbits() {
     for (Rabbit* rabbit : rabbits) 
     {
-        int moveX = std::rand() % 3 - 1;  // Random movement in x direction (-1, 0, 1)
-        int moveY = std::rand() % 3 - 1;  // Random movement in y direction (-1, 0, 1)
+        int moveX = rand() % 3 - 1;  // Random movement in x direction (-1, 0, 1)
+        int moveY = rand() % 3 - 1;  // Random movement in y direction (-1, 0, 1)
         
         int oldX = rabbit->getX();
         int oldY = rabbit->getY();
@@ -367,21 +310,9 @@ void GameEngine::moveRabbits() {
                 rabbit->setX(newX);
                 rabbit->setY(newY);
                 field[newX][newY] = rabbit;
-                // field[oldX][oldY] = nullptr;
             } 
             else if ((field[newX][newY]->getSymbol() !="R") && (field[newX][newY]->getSymbol() !="V") && (field[newX][newY]->getSymbol() !="S")) 
             {
-                // If Rabbit moves into a Veggie, remove the Veggie
-                ////////////////////////////////////////////////////////////////////////////////////////////
-                /*
-                Veggie* veggie = dynamic_cast<Veggie*>(field[newX][newY]);
-                auto it = find(veggies.begin(), veggies.end(), veggie);      
-                if (it != veggies.end()) { // If element found         
-                //newVector.push_back(*it); // Push the found element into the new vector         
-                veggies.erase(it); // Remove the element from the original vector  
-                } 
-                */  
-                ////////////////////////////////////////////////////////////////////////////////////////////
                 field[rabbit->getX()][rabbit->getY()] = nullptr;
                 rabbit->setX(newX);
                 rabbit->setY(newY);
@@ -434,7 +365,7 @@ void GameEngine::moveSnake(){
                 }
             }
             field[s_x][s_y] = nullptr;
-            std::cout << "Snake Bite! You Lost "<<min<<" Veggies" << std::endl;
+            cout << "Snake Bite! You Lost "<<min<<" Veggies" << endl;
             initSnake();
         } else if (field[n_s_r][n_s_c] == nullptr) {
             field[s_x][s_y] = nullptr;
@@ -467,27 +398,14 @@ void GameEngine::moveCptVertical(int movement) {
             field[newX][newY] = captain;
             captain->setX(newX);
             // Output and update score
-            std::cout << "Delicious vegetable found: " << veggie->getName() << std::endl;
+            cout << "Delicious vegetable found: " << veggie->getName() << endl;
             captain->addVeggie(veggie);
             playerScore = playerScore + (veggie->getPoints());
-            ////////////////////////////////////////////////////////////////////////////////////////////
-            /*
-            auto it = find(veggies.begin(), veggies.end(), veggie);      
-            if (it != veggies.end()) { // If element found         
-            //newVector.push_back(*it); // Push the found element into the new vector         
-            veggies.erase(it); // Remove the element from the original vector    
-            */ 
-            ////////////////////////////////////////////////////////////////////////////////////////////
-            //}
 
         } else if (field[newX][newY]->getSymbol() == "R") {
             // Captain moved into a space occupied by Rabbit
-            std::cout << "Do not step on the rabbits!" << std::endl;
-            // Do not move the Captain object
+            cout << "Do not step on the rabbits!" << endl;
         }
-
-        // Set the Captain's previous location in the field to nullptr
-        // field[currentX][currentY] = nullptr;
     }
 }
 
@@ -518,20 +436,10 @@ void GameEngine::moveCptHorizontal(int movement) {
             cout << "Delicious vegetable found: " << veggie->getName() << endl;
             captain->addVeggie(veggie);
             playerScore = playerScore + (veggie->getPoints());
-            ////////////////////////////////////////////////////////////////////////////////////////////
-            /*
-            auto it = find(veggies.begin(), veggies.end(), veggie);      
-            if (it != veggies.end()) { // If element found         
-            //newVector.push_back(*it); // Push the found element into the new vector         
-            veggies.erase(it); // Remove the element from the original vector
-            */
-            ////////////////////////////////////////////////////////////////////////////////////////////     
-            //}
 
         } else if (field[newX][newY]->getSymbol() == "R") {
             // Captain moved into a space occupied by Rabbit
-            std::cout << "Do not step on the rabbits!" << std::endl;
-            // Do not move the Captain object
+            cout << "Do not step on the rabbits!" << endl;
         }
     }
 
@@ -543,7 +451,7 @@ void GameEngine::moveCaptain() {
     
     // Read a single character
     cin.get(direction);
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     int movement = 0;
 
     // Determine the movement based on user input
@@ -577,23 +485,23 @@ void GameEngine::moveCaptain() {
 
 
 void GameEngine::gameOver() {
-std::cout << "Game Over!" << std::endl;
+cout << "Game Over!" << endl;
     
     // Get the number of vegetables harvested by the Captain
-    const std::vector<Veggie*>& harvestedVeggies = captain->getVeggieCollection();
+    const vector<Veggie*>& harvestedVeggies = captain->getVeggieCollection();
     int numHarvestedVeggies = static_cast<int>(harvestedVeggies.size());
 
     // Output the number of vegetables harvested
-    std::cout << "Vegetables harvested by Captain: " << numHarvestedVeggies << std::endl;
+    cout << "Vegetables harvested by Captain: " << numHarvestedVeggies << endl;
 
     // Output the names of all vegetables harvested by the Captain
-    std::cout << "Vegetable names:" << std::endl;
+    cout << "Vegetable names:" << endl;
     for (const Veggie* veggie : harvestedVeggies) {
-        std::cout << "- " << veggie->getName() << std::endl;
+        cout << "- " << veggie->getName() << endl;
     }
 
     // Output the player's score
-    std::cout << "Your Score: " << getScore() << std::endl;
+    cout << "Your Score: " << getScore() << endl;
 
 
 }
