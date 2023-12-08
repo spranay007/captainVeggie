@@ -15,6 +15,7 @@ class FieldInhabitant;
 class Captain;
 class Rabbit;
 class Veggie;
+class Snake;
 
 class GameEngine {
 public:
@@ -26,6 +27,7 @@ public:
     void printField();
     void moveRabbits();
     void moveCaptain();
+    void moveSnake();
     void gameOver();
 
     int getScore() const;
@@ -42,10 +44,13 @@ private:
     
     vector<Rabbit*> rabbits;
     vector<Veggie*> veggies;
+    Snake* snake;
+
 
     void initVeggies();
     void initCaptain();
     void initRabbits();
+    void initSnake();
     void moveCptVertical(int movement);
     void moveCptHorizontal(int movement);
 };

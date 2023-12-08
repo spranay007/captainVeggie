@@ -3,6 +3,7 @@
 #include "Captain.h"
 #include "Rabbit.h"
 #include "Veggie.h"
+#include "Snake.h"
 #include <algorithm> 
 #include <iostream>
 #include <fstream>
@@ -24,6 +25,7 @@ void GameEngine::initializeGame() {
     initVeggies();
     initCaptain();
     initRabbits();
+    initSnake();
     printField();
     /////////////////////////////////////////////////////////
     // cout << "Current Field:" << endl;
@@ -197,6 +199,20 @@ void GameEngine::initRabbits()
     }
 }
 
+void GameEngine::initSnake() {
+    snake = new Snake(0, 0);
+
+    int randomX, randomY;
+    do {
+        randomX = rand() % height;
+        randomY = rand() % width;
+    } while (field[randomX][randomY] != nullptr);
+
+    snake->setSnakeX(randomX);
+    snake->setSnakeY(randomY);
+    field[randomX][randomY] = snake;
+}
+
 int GameEngine::remainingVeggies() const {
 
     int veggieCount = 0;
@@ -204,7 +220,7 @@ int GameEngine::remainingVeggies() const {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             // Check if the current slot contains a Veggie object
-            if (field[i][j] != nullptr && field[i][j]->getSymbol() != "V" && field[i][j]->getSymbol() != "R") {
+            if (field[i][j] != nullptr && field[i][j]->getSymbol() != "V" && field[i][j]->getSymbol() != "R" && field[i][j]->getSymbol() != "S") {
                 veggieCount++;
             }
         }
@@ -291,7 +307,7 @@ void GameEngine::moveRabbits() {
                 field[newX][newY] = rabbit;
                 // field[oldX][oldY] = nullptr;
             } 
-            else if ((field[newX][newY]->getSymbol() !="R") && (field[newX][newY]->getSymbol() !="V")) 
+            else if ((field[newX][newY]->getSymbol() !="R") && (field[newX][newY]->getSymbol() !="V") && (field[newX][newY]->getSymbol() !="S")) 
             {
                 // If Rabbit moves into a Veggie, remove the Veggie
                 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -312,6 +328,58 @@ void GameEngine::moveRabbits() {
             }
         }
     }
+}
+
+void GameEngine::moveSnake(){
+        int c_x = captain->getX();
+        int c_y = captain->getY();
+        int s_x = snake->getSnakeX();
+        int s_y = snake->getSnakeY();
+        int move = rand() % 2;
+
+        int n_s_r, n_s_c;
+
+        if (move == 0) {
+            if (c_x > s_x) {
+                n_s_r = s_x + 1;
+                n_s_c = s_y;
+            } else if (c_x < s_x) {
+                n_s_r = s_x - 1;
+                n_s_c = s_y;
+            } else {
+                move = 1;
+            }
+        }
+
+        if (move == 1) {
+            if (c_y > s_y) {
+                n_s_c = s_y + 1;
+                n_s_r = s_x;
+            } else {
+                n_s_c = s_y - 1;
+                n_s_r = s_x;
+            }
+        }
+
+        if (n_s_r == c_x && n_s_c == c_y) {
+            int size = static_cast<int>(captain->getVeggieCollection().size());
+            int min = std::min(size, 5);
+            for (int i = 0; i < min; i++) {
+                Veggie* veggie = captain->getVeggieCollection().back();
+                captain->getVeggieCollection().pop_back();
+                if (veggie != nullptr) {
+                    playerScore -= veggie->getPoints();
+                }
+            }
+            field[s_x][s_y] = nullptr;
+            std::cout << "Snake Bite! You Lost "<<min<<" Veggies" << std::endl;
+            initSnake();
+        } else if (field[n_s_r][n_s_c] == nullptr) {
+            field[s_x][s_y] = nullptr;
+            snake->setSnakeX(n_s_r);
+            snake->setSnakeY(n_s_c);
+            field[n_s_r][n_s_c] = snake;
+        }
 }
 
 void GameEngine::moveCptVertical(int movement) {

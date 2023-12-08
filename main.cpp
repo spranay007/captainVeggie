@@ -28,6 +28,9 @@ int main() {
         // Move the captain
         game.moveCaptain();
 
+        // Move the snake
+        game.moveSnake();
+
         // Determine the new number of remaining vegetables
         remainingVeggies = game.remainingVeggies();
     }
