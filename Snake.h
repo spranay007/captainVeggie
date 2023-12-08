@@ -1,3 +1,8 @@
+/* Author: Pranay Saha, Aaftab Gowani, Sameer Bhalala
+Date: 12-06-2023
+Description: This header file is for Caption.
+*/
+
 #ifndef SNAKE_H
 #define SNAKE_H
 

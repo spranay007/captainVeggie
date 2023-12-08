@@ -1,7 +1,6 @@
 /* Author: Pranay Saha, Aaftab Gowani, Sameer Bhalala
 Date: 12-06-2023
-Description:
-
+Description: This is a FieldInhabitant.cpp file.
 */
 
 

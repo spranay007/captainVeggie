@@ -1,13 +1,13 @@
 /* Author: Pranay Saha, Aaftab Gowani, Sameer Bhalala
 Date: 12-06-2023
-Description: 
+Description: This is a caption.cpp file.
 
 */
 
 // Include the header file for the Captain class
 #include "Captain.h"
 
-// Constructor for the Captain class
+// Constructor for the Captain class, initializing the Creature base class with coordinates and a string identifier
 Captain::Captain(int xCoord, int yCoord) : Creature(xCoord, yCoord, "V") {}
 
 // Method to add a Veggie object to the veggieCollection vector
