@@ -1,3 +1,9 @@
+/* Author: Pranay Saha, Aaftab Gowani, Sameer Bhalala
+Date: 12-06-2023
+Description:This is a Snake.cpp file.
+
+*/
+
 #include "Snake.h"
 
 Snake::Snake(int x, int y) : Creature(x, y, "S") {}
