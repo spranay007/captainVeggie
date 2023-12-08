@@ -26,8 +26,6 @@ public:
     void setRabbitY(int y);
 
 private:
-    // Member variables for Rabbit
-    // These are inherited from Creature: int x, int y, string type
 };
 
 #endif // RABBIT_H

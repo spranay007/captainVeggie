@@ -6,10 +6,9 @@
 
 class Snake : public Creature {
 public:
-    //this is the x and y coordinates of the captain
     Snake(int x, int y);
     
-    // Getter functions
+    // Getter and Setter functions
     int getSnakeX() const;
     void setSnakeX(int x);
 

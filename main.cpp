@@ -8,7 +8,7 @@ Description:
 #include <iostream>
 
 int main() {
-    GameEngine game(10, 10);  // Assuming initial dimensions of the field are 10x10
+    GameEngine game(10, 10);  
     game.initializeGame();
     game.intro();
 
