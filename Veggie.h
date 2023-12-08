@@ -15,7 +15,6 @@ class Veggie : public FieldInhabitant {
 private:
     string name;
     int points;
-
 public:
     Veggie(const string& name, int points, const string& symbol);
     
@@ -24,6 +23,7 @@ public:
     void setName(const string& name);
 
     // Getter and setter for points
+    
     int getPoints() const;
     void setPoints(int points);
 };

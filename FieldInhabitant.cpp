@@ -11,7 +11,7 @@ Description:
 // Constructor for the FieldInhabitant class, initializing the 'symbol' member variable with the provided value
 FieldInhabitant::FieldInhabitant(const string& symbol) : symbol(symbol) {}
 
-// Destructor for the FieldInhabitant class (empty as there are no dynamic resources to release)
+// Destructor for the F                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ieldInhabitant class (empty as there are no dynamic resources to release)
 FieldInhabitant::~FieldInhabitant() {}
 
 // Getter method to retrieve the 'symbol' member variable

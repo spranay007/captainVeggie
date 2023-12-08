@@ -6,7 +6,7 @@ Description:
 
 #include "Creature.h"
 
-Creature::Creature(int xCoord, int yCoord, const string& symbol) : FieldInhabitant(symbol), x(xCoord), y(yCoord)  {}
+Creature::Creature(int xCoord, int yCoord, const string& symbol) : x(xCoord), y(yCoord),FieldInhabitant(symbol)  {}
 
 // Getter functions
 int Creature::getX() const

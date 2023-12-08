@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/91721/Desktop/C++ assignments/Labs/captainVeggie",
-      "program": "c:/Users/91721/Desktop/C++ assignments/Labs/captainVeggie/build/Debug/outDebug",
+      "cwd": "e:/College/EE_553_EngineeringC++/Project 2",
+      "program": "e:/College/EE_553_EngineeringC++/Project 2/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

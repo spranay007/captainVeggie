@@ -39,8 +39,9 @@ private:
     const static int NUMBEROFVEGGIES = 30;
     const static int NUMBEROFRABBITS = 5;
     Captain* captain;
-    std::vector<Rabbit*> rabbits;
-    std::vector<Veggie*> veggies;
+    
+    vector<Rabbit*> rabbits;
+    vector<Veggie*> veggies;
 
     void initVeggies();
     void initCaptain();
