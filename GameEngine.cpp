@@ -255,9 +255,63 @@ void GameEngine::moveCptHorizontal(int movement) {
 }
 
 void GameEngine::moveCaptain() {
-    // TODO: Implement the function
+   char direction;
+    std::cout << "Enter direction to move the Captain (W/A/S/D): ";
+    std::cin >> direction;
+
+    int movement = 0;
+
+    // Determine the movement based on user input
+    switch (tolower(direction)) {
+        case 'w':
+            movement = -1; // Move up
+            break;
+        case 's':
+            movement = 1; // Move down
+            break;
+        case 'a':
+            movement = -1; // Move left
+            break;
+        case 'd':
+            movement = 1; // Move right
+            break;
+        default:
+            std::cout << "Invalid input. Captain did not move." << std::endl;
+            return;
+    }
+
+    // Check the player's input using a switch and call the appropriate move function
+    switch (tolower(direction)) {
+        case 'w':
+        case 's':
+            moveCptVertical(movement);
+            break;
+        case 'a':
+        case 'd':
+            moveCptHorizontal(movement);
+            break;
+        default:
+            std::cout << "Invalid input. Captain did not move." << std::endl;
+            break;
+    }
 }
 
 void GameEngine::gameOver() {
-    // TODO: Implement the function
+    std::cout << "Game Over!" << std::endl;
+    
+    // Get the number of vegetables harvested by the Captain
+    const std::vector<Veggie*>& harvestedVeggies = captain->getVeggieCollection();
+    int numHarvestedVeggies = static_cast<int>(harvestedVeggies.size());
+
+    // Output the number of vegetables harvested
+    std::cout << "Vegetables harvested by Captain: " << numHarvestedVeggies << std::endl;
+
+    // Output the names of all vegetables harvested by the Captain
+    std::cout << "Vegetable names:" << std::endl;
+    for (const Veggie* veggie : harvestedVeggies) {
+        std::cout << "- " << veggie->getName() << std::endl;
+    }
+
+    // Output the player's score
+    std::cout << "Your Score: " << getScore() << std::endl;
 }
