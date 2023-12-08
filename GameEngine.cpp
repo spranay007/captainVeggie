@@ -1,9 +1,3 @@
-#include "GameEngine.h"
-#include "FieldInhabitant.h"
-#include "Captain.h"
-#include "Rabbit.h"
-#include "Veggie.h"
-#include "Snake.h"
 #include <algorithm> 
 #include <iostream>
 #include <fstream>
@@ -11,6 +5,16 @@
 #include <ctime>
 #include <sstream>
 #include <vector>
+#include <limits>
+#include <cctype>
+#include <iomanip>
+
+#include "GameEngine.h"
+#include "FieldInhabitant.h"
+#include "Captain.h"
+#include "Rabbit.h"
+#include "Veggie.h"
+#include "Snake.h"
 
 GameEngine::GameEngine(int height, int width)
     : height(height), width(width), playerScore(0), captain(nullptr), field(nullptr) {
@@ -48,10 +52,10 @@ void GameEngine::initializeGame() {
 int generateRandomNumber(int maxNumber) {
     int randomNumber = 0;
     // Seed the random number generator with the current time
-    // std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     // Generate a random number between 0 and maxNumber
-    randomNumber = std::rand() % (maxNumber + 1);
+    randomNumber = rand() % (maxNumber + 1);
     return randomNumber;
 }
 
@@ -94,13 +98,13 @@ void GameEngine::initVeggies() {
     // Time to seed
     srand(static_cast<unsigned int>(time(nullptr)));
 
-    string veggieName[30]; 
-    string veggieSymbol[30];
-    int veggiePoints[30] ={0};
+    // string veggieName[30]; 
+    // string veggieSymbol[30];
+    // int veggiePoints[30] ={0};
    
     
     while (getline(file, line)) {
-        cout << line << endl;
+        //cout << line << endl;
         istringstream veggieStream(line);
         /*
         getline(veggieStream, veggieName[uniqueVegeCount], ','); 
@@ -110,14 +114,14 @@ void GameEngine::initVeggies() {
         cout << "Vegetable: " << veggieName[uniqueVegeCount] << ", Symbol: " << veggieSymbol[uniqueVegeCount] << ", Points: " << veggiePoints[uniqueVegeCount] << endl;
         uniqueVegeCount++;
         */
-       string name, symbol;
+        string name, symbol;
         int points;
 
         getline(veggieStream, name, ',');
         getline(veggieStream, symbol, ',');
         veggieStream >> points;
 
-        cout << "Vegetable: " << name << ", Symbol: " << symbol << ", Points: " << points << endl;
+        // cout << "Vegetable: " << name << ", Symbol: " << symbol << ", Points: " << points << endl;
 
         // Create a new Veggie object and add it to the vector
         Veggie* newVeggieRead = new Veggie(name, points, symbol);
@@ -171,8 +175,7 @@ void GameEngine::initVeggies() {
             field[randomX][randomY] = newVeggie;    
         } 
         */
-    // for(int i = 0 ; i<uniqueVegeCount ; i++)
-    // {
+
         int countFlag = 0;
         for (Veggie* veg : veggies) {
             for (int j = 0; j < temp[countFlag]; j++) {
@@ -182,17 +185,16 @@ void GameEngine::initVeggies() {
                     randomY = rand() % width;
                 } while (field[randomX][randomY] != nullptr);
                 field[randomX][randomY] = veg;
-                cout << "Name: " << veg->getName() << endl;
+                // cout << "Name: " << veg->getName() << endl;
             }
             countFlag++;
-        }         
-    // }
+        }
     file.close();
     
-    cout << "Vegetables Loaded:" << endl;
-    for (const Veggie* veggie : veggies) {
-        cout << "Name: " << veggie->getName() << ", Symbol: " << veggie->getSymbol() << ", Points: " << veggie->getPoints() << endl;
-    }
+    // cout << "Vegetables Loaded:" << endl;
+    // for (const Veggie* veggie : veggies) {
+    //     cout << "Name: " << veggie->getName() << ", Symbol: " << veggie->getSymbol() << ", Points: " << veggie->getPoints() << endl;
+    // }
 }
 
 
@@ -277,12 +279,18 @@ void GameEngine::intro() {
 }
 
 void GameEngine::printField() {
+    // ANSI escape codes for color
+    const std::string RESET_COLOR = "\033[0m";
+    const std::string YELLOW_COLOR = "\033[33m";  // Yellow for rabbits
+    const std::string BLUE_COLOR = "\033[34m";    // Blue for captain
+    const std::string GREEN_COLOR = "\033[32m";   // Green for vegetables
+    const std::string RED_COLOR = "\033[31m";       //red for snake
         // Print the top border
-        cout << "+"<<" ";
-        for (size_t i = 0; i < width + 7; i++) {
-            cout << "#"<<" ";
+        cout << "#"<<" ";
+        for (int top = 0; top < width + 4; top++) {
+            cout <<"#"<<" ";
         }
-        cout << "+" << endl;
+        cout << "#" << endl;
 
         // Print the contents of the field
         for (int i = 0; i < height; i++) 
@@ -294,18 +302,34 @@ void GameEngine::printField() {
                 {
                     cout << "   ";
                 } else {
-                    cout << " " << field[i][j]->getSymbol() << " ";
+                    if(field[i][j]->getSymbol() == "R") //rabbit
+                    {
+                        cout << YELLOW_COLOR  <<" "<< field[i][j]->getSymbol()<<" " << RESET_COLOR;
+                    }
+                    else if(field[i][j]->getSymbol() == "V") //captain
+                    {
+                        cout << BLUE_COLOR <<" "<< field[i][j]->getSymbol()<<" " << RESET_COLOR;
+                    }
+                    else if(field[i][j]->getSymbol() == "S") //snake
+                    {
+                        cout << RED_COLOR <<" "<< field[i][j]->getSymbol()<<" " << RESET_COLOR;
+                    }
+                    else //vegetables
+                    {
+                        cout << GREEN_COLOR << " " << field[i][j]->getSymbol() << " "<< RESET_COLOR;
+                    }
+                    // cout << " " << field[i][j]->getSymbol() << " ";
                 }
         }
         cout << "#"<<endl;
     }
 
         // Print the bottom border
-        cout << "+"<<" ";
-        for (size_t i = 0; i < width + 7; i++) {
-            cout << "#"<<" ";
+        cout << "#"<<" ";
+        for (int bot = 0; bot < width + 4; bot++) {
+            cout <<"#"<<" ";
         }
-        cout << "+" << endl;
+        cout << "#" << endl;
     }
 
 int GameEngine::getScore() const {
@@ -501,18 +525,17 @@ void GameEngine::moveCptHorizontal(int movement) {
             std::cout << "Do not step on the rabbits!" << std::endl;
             // Do not move the Captain object
         }
-
-        // Set the Captain's previous location in the field to nullptr
-        // field[currentX][currentY] = nullptr;
     }
 
 }
 
 void GameEngine::moveCaptain() {
-char direction;
-    std::cout << "Enter direction to move the Captain (W/A/S/D): ";
-    std::cin >> direction;
-
+    char direction;
+    cout << "Enter direction to move the Captain (W/A/S/D): ";
+    
+    // Read a single character
+    cin.get(direction);
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     int movement = 0;
 
     // Determine the movement based on user input
@@ -530,25 +553,20 @@ char direction;
             movement = 1; // Move right
             break;
         default:
-            std::cout << "Invalid input. Captain did not move." << std::endl;
+            cout << "Invalid input. Captain did not move." << endl;
             return;
     }
 
-    // Check the player's input using a switch and call the appropriate move function
-    switch (tolower(direction)) {
-        case 'w':
-        case 's':
-            moveCptVertical(movement);
-            break;
-        case 'a':
-        case 'd':
-            moveCptHorizontal(movement);
-            break;
-        default:
-            std::cout << "Invalid input. Captain did not move." << std::endl;
-            break;
+    // Call the appropriate move function based on the direction
+    if (tolower(direction) == 'w' || tolower(direction) == 's') {
+        moveCptVertical(movement);
+    } else if (tolower(direction) == 'a' || tolower(direction) == 'd') {
+        moveCptHorizontal(movement);
+    } else {
+        cout << "Invalid input. Captain did not move." << endl;
     }
 }
+
 
 void GameEngine::gameOver() {
 std::cout << "Game Over!" << std::endl;

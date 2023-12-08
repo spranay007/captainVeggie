@@ -17,7 +17,7 @@ void Captain::addVeggie(Veggie* veggie)
 }
 
 // Getter method to retrieve the veggieCollection vector
-const vector<Veggie*>& Captain::getVeggieCollection() const
+vector<Veggie*>& Captain::getVeggieCollection()
 {
     return veggieCollection;
 }

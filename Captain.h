@@ -22,7 +22,7 @@ public:
     void addVeggie(Veggie* veggie);
 
     // Getter function for veggieCollection
-    const vector<Veggie*>& getVeggieCollection() const;
+    vector<Veggie*>& getVeggieCollection();
 
     // Setter function for veggieCollection
     void setVeggieCollection(const vector<Veggie*>& collection);
