@@ -95,20 +95,33 @@ void GameEngine::initVeggies() {
     string veggieName[30]; 
     string veggieSymbol[30];
     int veggiePoints[30] ={0};
-    int uniqueVegeCount =0;
-
+   
+    
     while (getline(file, line)) {
         cout << line << endl;
         istringstream veggieStream(line);
-        
+        /*
         getline(veggieStream, veggieName[uniqueVegeCount], ','); 
         getline(veggieStream, veggieSymbol[uniqueVegeCount], ',');
         veggieStream >> veggiePoints[uniqueVegeCount];
         
         cout << "Vegetable: " << veggieName[uniqueVegeCount] << ", Symbol: " << veggieSymbol[uniqueVegeCount] << ", Points: " << veggiePoints[uniqueVegeCount] << endl;
         uniqueVegeCount++;
-    }
+        */
+       string name, symbol;
+        int points;
 
+        getline(veggieStream, name, ',');
+        getline(veggieStream, symbol, ',');
+        veggieStream >> points;
+
+        cout << "Vegetable: " << name << ", Symbol: " << symbol << ", Points: " << points << endl;
+
+        // Create a new Veggie object and add it to the vector
+        Veggie* newVeggieRead = new Veggie(name, points, symbol);
+        veggies.push_back(newVeggieRead);
+    }
+    int uniqueVegeCount = veggies.size();
     int vegeLeftToAllocate = NUMBEROFVEGGIES;
     int vegeAllocated = 0;
     int temp[NUMBEROFVEGGIES] ={0};
@@ -140,11 +153,12 @@ void GameEngine::initVeggies() {
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
-    for(int i = 0 ; i<uniqueVegeCount ; i++)
-    {
+    // for(int i = 0 ; i<uniqueVegeCount ; i++)
+    // {
+        /*
         Veggie* newVeggie = new Veggie(veggieName[i], veggiePoints[i], veggieSymbol[i]);
-        veggies.push_back(newVeggie);
-
+        //veggies.push_back(newVeggie);
+        // Veggie* newVeggie = new Veggie(veggies[i]->getName(), veggies[i]->getSymbol(), veggies[i]->getPoints());
         for(int j = 0 ; j < temp[i] ; j++)
         {
             int randomX, randomY;
@@ -153,8 +167,24 @@ void GameEngine::initVeggies() {
                 randomY = rand() % width;
             } while (field[randomX][randomY] != nullptr);
             field[randomX][randomY] = newVeggie;    
-        }          
-    }
+        } 
+        */
+    // for(int i = 0 ; i<uniqueVegeCount ; i++)
+    // {
+        int countFlag = 0;
+        for (Veggie* veg : veggies) {
+            for (int j = 0; j < temp[countFlag]; j++) {
+                int randomX, randomY;
+                do {
+                    randomX = rand() % height;
+                    randomY = rand() % width;
+                } while (field[randomX][randomY] != nullptr);
+                field[randomX][randomY] = veg;
+                cout << "Name: " << veg->getName() << endl;
+            }
+            countFlag++;
+        }         
+    // }
     file.close();
     
     cout << "Vegetables Loaded:" << endl;
@@ -233,31 +263,31 @@ void GameEngine::intro() {
 void GameEngine::printField() {
         // Print the top border
         cout << "+"<<" ";
-        for (size_t i = 0; i < width + 5; i++) {
-            cout << "-"<<" ";
+        for (size_t i = 0; i < width + 7; i++) {
+            cout << "#"<<" ";
         }
         cout << "+" << endl;
 
         // Print the contents of the field
         for (int i = 0; i < height; i++) 
         {
-            cout<<"|";
+            cout<<"#";
             for (int j = 0; j < width; j++) 
             {
                 if (field[i][j] == nullptr) 
                 {
-                    cout << " - ";
+                    cout << "   ";
                 } else {
                     cout << " " << field[i][j]->getSymbol() << " ";
                 }
         }
-        cout << "|"<<endl;
+        cout << "#"<<endl;
     }
 
         // Print the bottom border
         cout << "+"<<" ";
-        for (size_t i = 0; i < width + 5; i++) {
-            cout << "-"<<" ";
+        for (size_t i = 0; i < width + 7; i++) {
+            cout << "#"<<" ";
         }
         cout << "+" << endl;
     }
